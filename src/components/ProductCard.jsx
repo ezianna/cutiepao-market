@@ -2,6 +2,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Card, CardContent } from "./ui/card";
 import { Star } from "lucide-react";
+import { Button } from "./ui/button";
+import { useCart } from "./context/CartContext";
+import { useAuth } from "./context/AuthContext";
 
 export default function ProductCard({
   id,
@@ -15,9 +18,11 @@ export default function ProductCard({
   seller,
   location,
 }) {
+  const { role } = useAuth();
+  const { addToCart } = useCart();
   return (
-    <Link to={`/product/${id}`}>
-      <Card className="group bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100 cursor-pointer">
+    <Card className="group bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100 flex flex-col h-full">
+      <Link to={`/product/${id}`} className="block">
         <CardContent className="p-0">
           {/* Gambar */}
           <div className="relative w-full h-48 overflow-hidden rounded-t-xl">
@@ -32,13 +37,11 @@ export default function ProductCard({
               </span>
             )}
           </div>
-
           {/* Info Produk */}
           <div className="p-4">
-            <h3 className="text-sm font-semibold text-gray-800 mb-2 line-clamp-2 group-hover:text-cyan-700 transition-colors">
+            <h3 className="text-base font-semibold text-gray-800 mb-2 line-clamp-2 group-hover:text-cyan-700 transition-colors">
               {name}
             </h3>
-
             {/* Harga */}
             <div className="flex items-center space-x-2 mb-2">
               <span className="text-base font-bold text-cyan-700">
@@ -50,20 +53,36 @@ export default function ProductCard({
                 </span>
               )}
             </div>
-
             {/* Rating & Ulasan */}
             <div className="flex items-center text-xs text-gray-500 mb-2">
               <Star className="w-3 h-3 text-yellow-400 mr-1" />
               {rating} ({reviews})
             </div>
-
             {/* Seller */}
-            <p className="text-xs text-gray-400">
+            <p className="text-xs text-gray-400 mb-2">
               {seller} • {location}
             </p>
           </div>
         </CardContent>
-      </Card>
-    </Link>
+      </Link>
+      <div className="px-4 pb-4 mt-auto">
+        <Button
+          className="w-full bg-cyan-600 text-white hover:bg-cyan-700"
+          onClick={() => {
+            addToCart({ id, name, price, image });
+            window.alert('Barang berhasil ditambahkan ke keranjang!');
+          }}
+        >
+          Tambah ke Keranjang
+        </Button>
+      </div>
+        {/* Tombol Edit dan Delete hanya untuk admin */}
+        {role === "admin" && (
+          <div className="flex gap-2 mt-2">
+            <button className="bg-yellow-500 text-white px-2 py-1 rounded hover:bg-yellow-600">Edit</button>
+            <button className="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600">Delete</button>
+          </div>
+        )}
+    </Card>
   );
 }

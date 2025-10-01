@@ -1,18 +1,19 @@
 import React from "react";
 
-export function Badge({ children, className = "", variant = "info" }) {
+export function Badge({ children, className = "", variant = "default", ...props }) {
+  const baseClasses = "inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2";
+  
   const variants = {
-    info: "bg-cyan-100 text-cyan-700",
-    success: "bg-green-100 text-green-700",
-    warning: "bg-yellow-100 text-yellow-700",
-    danger: "bg-red-100 text-red-700",
+    default: "border-transparent bg-blue-500 text-white",
+    secondary: "border-transparent bg-gray-100 text-gray-900",
+    outline: "text-gray-950"
   };
 
+  const classes = `${baseClasses} ${variants[variant]} ${className}`;
+
   return (
-    <span
-      className={`inline-block text-xs font-medium px-2.5 py-1 rounded-lg ${variants[variant]} ${className}`}
-    >
+    <div className={classes} {...props}>
       {children}
-    </span>
+    </div>
   );
 }
