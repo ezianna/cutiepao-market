@@ -1,110 +1,67 @@
-import React from 'react';
-import { Facebook, Twitter, Instagram, Youtube, MapPin, Phone, Mail } from 'lucide-react';
-import { Button } from './ui/button';
-import { Input } from './ui/input';
-
-export function Footer() {
+import React from "react";
+const Footer = () => {
   return (
-    <footer className="bg-gray-900 text-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {/* Company Info */}
-          <div>
-            <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-2 rounded-lg inline-block mb-4">
-              <h3 className="text-lg font-bold">cutiepao</h3>
-            </div>
-            <p className="text-gray-400 mb-4">
-              Your trusted online marketplace for quality products at competitive prices.
-            </p>
-            <div className="flex space-x-4">
-              <Button size="sm" variant="ghost" className="p-2 hover:bg-gray-800">
-                <Facebook className="h-5 w-5" />
-              </Button>
-              <Button size="sm" variant="ghost" className="p-2 hover:bg-gray-800">
-                <Twitter className="h-5 w-5" />
-              </Button>
-              <Button size="sm" variant="ghost" className="p-2 hover:bg-gray-800">
-                <Instagram className="h-5 w-5" />
-              </Button>
-              <Button size="sm" variant="ghost" className="p-2 hover:bg-gray-800">
-                <Youtube className="h-5 w-5" />
-              </Button>
-            </div>
-          </div>
-
-          {/* Quick Links */}
-          <div>
-            <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
-            <ul className="space-y-2 text-gray-400">
-              <li><a href="#" className="hover:text-white transition-colors">About Us</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">How to Shop</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Payment Methods</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Shipping Info</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Return Policy</a></li>
-            </ul>
-          </div>
-
-          {/* Customer Service */}
-          <div>
-            <h4 className="text-lg font-semibold mb-4">Customer Service</h4>
-            <div className="space-y-3 text-gray-400">
-              <div className="flex items-center space-x-2">
-                <Phone className="h-4 w-4" />
-                <span>+62 123 456 7890</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <Mail className="h-4 w-4" />
-                <span>support@marketplace.com</span>
-              </div>
-              <div className="flex items-start space-x-2">
-                <MapPin className="h-4 w-4 mt-1" />
-                <span>Yogyakarta, Indonesia</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Newsletter */}
-          <div>
-            <h4 className="text-lg font-semibold mb-4">Stay Updated</h4>
-            <p className="text-gray-400 mb-4">
-              Subscribe to get updates on new arrivals and exclusive offers.
-            </p>
-            <div className="flex space-x-2">
-              <Input
-                type="email"
-                placeholder="Enter your email"
-                className="bg-gray-800 border-gray-700 text-white placeholder-gray-400"
-              />
-              <Button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700">
-                Subscribe
-              </Button>
-            </div>
-          </div>
-        </div>
-
-        {/* Bottom Section */}
-        <div className="border-t border-gray-800 mt-8 pt-8">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <p className="text-gray-400 text-sm">
-              © 2024 MarketPlace. All rights reserved.
-            </p>
-            <div className="flex space-x-6 mt-4 md:mt-0">
-              <a href="#" className="text-gray-400 hover:text-white text-sm transition-colors">
-                Privacy Policy
-              </a>
-              <a href="#" className="text-gray-400 hover:text-white text-sm transition-colors">
-                Terms of Service
-              </a>
-              <a href="#" className="text-gray-400 hover:text-white text-sm transition-colors">
-                Help Center
-              </a>
-            </div>
-          </div>
-        </div>
+    <footer className="w-full border-t bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      {/* ...isi footer, bisa sesuaikan dengan kebutuhan... */}
+      <div className="container py-8 text-center text-muted-foreground">
+        &copy; {new Date().getFullYear()} cutiepao. All rights reserved.
       </div>
     </footer>
   );
-}
-
+};
 
 export default Footer;
+import { Search, MapPin, ShoppingCart, User, Bell } from "lucide-react";
+import { Button } from "./ui/button";
+import { Input } from "./ui/input";
+
+export const Header = () => {
+  return (
+    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <div className="container flex h-16 items-center justify-between px-4 md:px-6">
+        {/* Logo */}
+        <div className="flex items-center gap-8">
+          <h1 className="text-2xl font-bold bg-gradient-primary bg-clip-text text-transparent">
+            cutiepao
+          </h1>
+        </div>
+
+        {/* Search */}
+        <div className="hidden md:flex flex-1 max-w-xl mx-8">
+          <div className="relative w-full">
+            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+            <Input
+              type="search"
+              placeholder="Search for products, brands, and more..."
+              className="pl-10 pr-4 w-full rounded-full border-primary/20 focus-visible:ring-primary"
+            />
+          </div>
+        </div>
+
+        {/* Actions */}
+        <div className="flex items-center gap-4">
+          <Button variant="ghost" size="sm" className="hidden md:flex gap-2">
+            <MapPin className="h-4 w-4" />
+            <span className="text-sm">Location</span>
+          </Button>
+
+          <Button variant="ghost" size="icon" className="relative">
+            <Bell className="h-5 w-5" />
+            <span className="absolute -top-1 -right-1 h-4 w-4 rounded-full bg-destructive text-[10px] font-medium text-destructive-foreground flex items-center justify-center">
+              3
+            </span>
+          </Button>
+
+          <Button variant="ghost" size="icon" className="relative">
+            <ShoppingCart className="h-5 w-5" />
+          </Button>
+
+          <Button variant="ghost" size="sm" className="gap-2">
+            <User className="h-4 w-4" />
+            <span className="hidden md:inline">Account</span>
+          </Button>
+        </div>
+      </div>
+    </header>
+  );
+};

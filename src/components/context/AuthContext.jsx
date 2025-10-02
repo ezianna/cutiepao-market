@@ -3,22 +3,29 @@ import React, { createContext, useContext, useState } from "react";
 const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState(null); // { role: "admin" | "user", name: "..." }
+  const [user, setUser] = useState(null); // { email, role }
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  const login = (username, password) => {
-    if (username === "admin" && password === "123") {
-      setUser({ role: "admin", name: "Admin" });
-    } else if (username === "user" && password === "123") {
-      setUser({ role: "user", name: "User" });
-    } else {
-      alert("Invalid credentials");
+  const login = (email, password, role) => {
+    // Dummy validation sesuai permintaan
+    if (
+      (role === "user" && email === "fauzi@gmail.com" && password === "121314") ||
+      (role === "admin" && email === "admin@gmail.com" && password === "adminganteng")
+    ) {
+      setUser({ email, role });
+      setIsAuthenticated(true);
+      return true;
     }
+    return false;
   };
 
-  const logout = () => setUser(null);
+  const logout = () => {
+    setUser(null);
+    setIsAuthenticated(false);
+  };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ user, isAuthenticated, login, logout }}>
       {children}
     </AuthContext.Provider>
   );

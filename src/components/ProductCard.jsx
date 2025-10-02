@@ -1,88 +1,91 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { Card, CardContent } from "./ui/card";
-import { Star } from "lucide-react";
+import { Star, ShoppingCart } from "lucide-react";
 import { Button } from "./ui/button";
-import { useCart } from "./context/CartContext";
-import { useAuth } from "./context/AuthContext";
+import { Card, CardContent } from "./ui/card";
+import { useCart } from "../components/context/CartContext";
 
 export default function ProductCard({
   id,
   name,
   price,
   originalPrice,
+  discount,
   rating,
   reviews,
   image,
-  discount,
   seller,
   location,
 }) {
-  const { role } = useAuth();
   const { addToCart } = useCart();
+  const formatPrice = (price) => {
+    return new Intl.NumberFormat("id-ID", {
+      style: "currency",
+      currency: "IDR",
+      minimumFractionDigits: 0,
+    }).format(price);
+  };
+
   return (
-    <Card className="group bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100 flex flex-col h-full">
-      <Link to={`/product/${id}`} className="block">
-        <CardContent className="p-0">
-          {/* Gambar */}
-          <div className="relative w-full h-48 overflow-hidden rounded-t-xl">
-            <img
-              src={image}
-              alt={name}
-              className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-            />
-            {discount && (
-              <span className="absolute top-2 left-2 bg-cyan-600 text-white text-xs font-medium px-2 py-1 rounded-md">
+    <Card className="group overflow-hidden border border-border/40 rounded-xl bg-white shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+      <CardContent className="p-0">
+        {/* Image Container */}
+        <div className="relative w-full aspect-[4/5] overflow-hidden bg-gray-100">
+          {discount && (
+            <div className="absolute top-2 left-2 z-10">
+              <span className="inline-flex items-center rounded-md bg-red-500 px-2 py-0.5 text-xs font-semibold text-white shadow">
                 -{discount}%
+              </span>
+            </div>
+          )}
+          <img
+            src={image}
+            alt={name}
+            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+          />
+        </div>
+
+        {/* Content */}
+        <div className="p-4 space-y-3">
+          {/* Title */}
+          <h3 className="font-semibold text-sm line-clamp-2 min-h-[40px] group-hover:text-primary transition-colors">
+            {name}
+          </h3>
+
+          {/* Price */}
+          <div className="flex flex-col gap-1">
+            <span className="text-lg font-bold text-foreground">
+              {formatPrice(price)}
+            </span>
+            {originalPrice && (
+              <span className="text-xs text-gray-500 line-through">
+                {formatPrice(originalPrice)}
               </span>
             )}
           </div>
-          {/* Info Produk */}
-          <div className="p-4">
-            <h3 className="text-base font-semibold text-gray-800 mb-2 line-clamp-2 group-hover:text-cyan-700 transition-colors">
-              {name}
-            </h3>
-            {/* Harga */}
-            <div className="flex items-center space-x-2 mb-2">
-              <span className="text-base font-bold text-cyan-700">
-                Rp {price.toLocaleString("id-ID")}
-              </span>
-              {originalPrice && (
-                <span className="text-xs line-through text-gray-400">
-                  Rp {originalPrice.toLocaleString("id-ID")}
-                </span>
-              )}
+
+          {/* Rating & Seller */}
+          <div className="flex items-center justify-between text-xs text-gray-600">
+            <div className="flex items-center gap-1">
+              <Star className="h-3 w-3 fill-yellow-400 text-yellow-400" />
+              <span>{rating}</span>
+              <span>({reviews})</span>
             </div>
-            {/* Rating & Ulasan */}
-            <div className="flex items-center text-xs text-gray-500 mb-2">
-              <Star className="w-3 h-3 text-yellow-400 mr-1" />
-              {rating} ({reviews})
-            </div>
-            {/* Seller */}
-            <p className="text-xs text-gray-400 mb-2">
-              {seller} • {location}
-            </p>
           </div>
-        </CardContent>
-      </Link>
-      <div className="px-4 pb-4 mt-auto">
-        <Button
-          className="w-full bg-cyan-600 text-white hover:bg-cyan-700"
-          onClick={() => {
-            addToCart({ id, name, price, image });
-            window.alert('Barang berhasil ditambahkan ke keranjang!');
-          }}
-        >
-          Tambah ke Keranjang
-        </Button>
-      </div>
-        {/* Tombol Edit dan Delete hanya untuk admin */}
-        {role === "admin" && (
-          <div className="flex gap-2 mt-2">
-            <button className="bg-yellow-500 text-white px-2 py-1 rounded hover:bg-yellow-600">Edit</button>
-            <button className="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600">Delete</button>
-          </div>
-        )}
+
+          <p className="text-xs text-gray-500 truncate">
+            {seller} • {location}
+          </p>
+
+          {/* CTA Button */}
+          <Button
+            className="w-full h-9 text-sm gap-2 bg-primary text-white hover:bg-primary/90 transition"
+            onClick={() => addToCart({ id, name, price, image })}
+          >
+            <ShoppingCart className="h-4 w-4" />
+            Keranjang
+          </Button>
+        </div>
+      </CardContent>
     </Card>
   );
 }
