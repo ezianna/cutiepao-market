@@ -31,11 +31,11 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-100 to-blue-300">
-      <div className="w-full max-w-md bg-white rounded-xl shadow-lg p-8">
+    <div className="min-h-[70vh] flex items-center justify-center">
+      <div className="w-full max-w-md bg-slate-800 rounded-2xl shadow-lg p-8">
         <div className="flex flex-col items-center mb-6">
-          <svg width="48" height="48" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="text-blue-600 mb-2"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 11c1.104 0 2-.896 2-2s-.896-2-2-2-2 .896-2 2 .896 2 2 2zm0 0v2m0 4h.01M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9 9 4.03 9 9z" /></svg>
-          <h1 className="text-2xl font-bold">Login</h1>
+          <svg width="48" height="48" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="text-sky-400 mb-2"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 11c1.104 0 2-.896 2-2s-.896-2-2-2-2 .896-2 2 .896 2 2 2zm0 0v2m0 4h.01M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9 9 4.03 9 9z" /></svg>
+          <h1 className="text-2xl font-bold text-white">Login</h1>
         </div>
         <form onSubmit={handleSubmit} className="space-y-4">
           <input
@@ -43,7 +43,7 @@ export default function Login() {
             placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            className="w-full bg-slate-700 border border-slate-700 rounded px-3 py-2 text-slate-100 focus:outline-none focus:ring-2 focus:ring-sky-600"
             required
           />
           <input
@@ -51,10 +51,10 @@ export default function Login() {
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            className="w-full bg-slate-700 border border-slate-700 rounded px-3 py-2 text-slate-100 focus:outline-none focus:ring-2 focus:ring-sky-600"
             required
           />
-          <div className="flex gap-6 items-center justify-center">
+          <div className="flex gap-6 items-center justify-center text-slate-200">
             <label className="flex items-center gap-2">
               <input
                 type="radio"
@@ -74,8 +74,8 @@ export default function Login() {
               /> Admin
             </label>
           </div>
-          {error && <div className="text-red-500 text-sm text-center">{error}</div>}
-          <button type="submit" className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 flex items-center justify-center gap-2" disabled={loading}>
+          {error && <div className="text-red-400 text-sm text-center">{error}</div>}
+          <button type="submit" className="w-full bg-sky-600 text-white py-2 rounded hover:bg-sky-700 flex items-center justify-center gap-2" disabled={loading}>
             {loading && (
               <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />

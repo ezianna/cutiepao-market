@@ -1,5 +1,5 @@
 import React from "react";
-import { useCart } from "../components/context/CartContext.jsx";
+import { useCart } from "../components/context/CartContext";
 import { Button } from "../components/ui/button";
 
 export default function Checkout() {
@@ -13,36 +13,29 @@ export default function Checkout() {
   };
 
   return (
-    <div className="max-w-3xl mx-auto p-6">
-      <h1 className="text-2xl font-bold mb-4">Checkout</h1>
+    <div className="max-w-3xl mx-auto">
+      <div className="bg-slate-800 p-6 rounded-2xl shadow-sm">
+        <h1 className="text-2xl font-bold mb-4">Checkout</h1>
 
-      {items.length === 0 ? (
-        <p>Your cart is empty.</p>
-      ) : (
-        <>
-          <ul className="space-y-2">
-            {items.map((item) => (
-              <li key={item.id} className="flex justify-between">
-                <span>
-                  {item.name} × {item.quantity || 1}
-                </span>
-                <span>Rp {item.price.toLocaleString("id-ID")}</span>
-              </li>
-            ))}
-          </ul>
+        {items.length === 0 ? (
+          <p className="text-slate-300">Your cart is empty.</p>
+        ) : (
+          <>
+            <ul className="space-y-2">
+              {items.map((item) => (
+                <li key={item.id} className="flex justify-between text-slate-100">
+                  <span>{item.name} × {item.quantity || 1}</span>
+                  <span>Rp {item.price.toLocaleString("id-ID")}</span>
+                </li>
+              ))}
+            </ul>
 
-          <h2 className="text-xl font-bold mt-4">
-            Total: Rp {total.toLocaleString("id-ID")}
-          </h2>
+            <h2 className="text-xl font-bold mt-4 text-slate-100">Total: Rp {total.toLocaleString("id-ID")}</h2>
 
-          <Button
-            onClick={handlePlaceOrder}
-            className="bg-blue-600 hover:bg-blue-700 mt-4"
-          >
-            Place Order
-          </Button>
-        </>
-      )}
+            <Button onClick={handlePlaceOrder} className="bg-sky-600 hover:bg-sky-700 mt-4">Place Order</Button>
+          </>
+        )}
+      </div>
     </div>
   );
 }
