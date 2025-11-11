@@ -40,11 +40,6 @@ function Header() {
 
           {/* Right side icons */}
           <div className="flex items-center space-x-3">
-            <Button variant="ghost" size="sm" className="flex items-center space-x-1 px-2 py-1 rounded-full hover:bg-gray-50" onClick={() => navigate("/location") }>
-              <MapPin className="h-4 w-4" />
-              <span className="hidden sm:inline text-sm">Location</span>
-            </Button>
-
             <Button variant="ghost" size="sm" className="relative p-2 rounded-full hover:bg-gray-50" onClick={() => navigate("/notifications") }>
               <Bell className="h-5 w-5" />
               {notifications?.length > 0 && (
@@ -78,7 +73,7 @@ function Header() {
 
 export default Header;
 import React from "react";
-import { Search, ShoppingCart, User, Bell, MapPin } from "lucide-react";
+import { Search, ShoppingCart, User, Bell } from "lucide-react";
 import { Button } from "./ui/button.jsx";
 import { useNavigate } from "react-router-dom";
 import { Input } from "./ui/input.jsx";
